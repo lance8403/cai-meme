@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lance — Personal Hub &amp; Selected Work</title>
+  <meta
+    name="description"
+    content="Lance's lightweight personal hub for interactive browser utilities, design studies, and ongoing web experiments hosted on GitHub Pages."
+  />
+
+  <!-- Editorial Typography: Newsreader (Serif), DM Sans (Body/UI), IBM Plex Mono (Metadata) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Editorial Print with Forest Green Design Tokens -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Newsreader"', 'Georgia', 'Cambria', '"Times New Roman"', 'serif'],
+            sans: ['"DM Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+          },
+          colors: {
+            paper: '#F7F4EE',
+            card: '#FCFBF7',
+            ink: '#1B1E1B',
+            slatewarm: '#5B605B',
+            hairline: '#DDD6C9',
+            forest: {
+              DEFAULT: '#1F4E3D',
+              dark: '#163A2D',
+            },
+            sage: '#EAF1EC',
+          },
+          boxShadow: {
+            editorial: '0 14px 36px -22px rgba(27, 30, 27, 0.14), 0 2px 8px -2px rgba(27, 30, 27, 0.04)',
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body
+  id="top"
+  class="min-h-screen bg-paper text-ink font-sans antialiased selection:bg-sage selection:text-forest relative overflow-x-hidden flex flex-col"
+>
+  <!-- Subtle Archival Paper Grain Texture Overlay (Inline SVG turbulence, zero external assets) -->
+  <svg
+    aria-hidden="true"
+    class="pointer-events-none fixed inset-0 w-full h-full opacity-[0.03] z-0 mix-blend-multiply"
+  >
+    <filter id="archival-grain">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.85"
+        numOctaves="3"
+        stitchTiles="stitch"
+      />
+      <feColorMatrix type="saturate" values="0" />
+    </filter>
+    <rect width="100%" height="100%" filter="url(#archival-grain)" />
+  </svg>
+
+  <!-- 1. Minimal Sticky Editorial Top Navigation Bar -->
+  <header
+    class="sticky top-0 z-30 w-full bg-paper/85 backdrop-blur-md border-b border-hairline"
+  >
+    <div class="w-full max-w-5xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-4">
+      <!-- Left: Editorial Wordmark + Mono Domain Label -->
+      <a
+        href="#top"
+        data-smooth-scroll
+        class="group inline-flex items-baseline gap-2.5 rounded-lg py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+      >
+        <span class="font-serif text-xl sm:text-2xl font-medium tracking-tight text-ink inline-flex items-baseline">
+          Lance<span
+            aria-hidden="true"
+            class="inline-block w-1.5 h-1.5 rounded-[1px] bg-forest ml-1 mb-0.5 transition-transform duration-300 group-hover:scale-125"
+          ></span>
+        </span>
+        <span
+          class="hidden sm:inline-block font-mono text-[11px] tracking-wide text-slatewarm/85 border-l border-hairline pl-2.5"
+        >
+          lance8403.github.io
+        </span>
+      </a>
+
+      <!-- Right: Clean Section Links + GitHub External Link -->
+      <nav aria-label="Primary Navigation" class="flex items-center gap-1 sm:gap-2">
+        <a
+          href="#projects"
+          data-smooth-scroll
+          class="px-2.5 sm:px-3 py-2 rounded-lg text-sm font-medium text-slatewarm hover:text-ink hover:bg-card/80 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+        >
+          Projects
+        </a>
+
+        <a
+          href="#about"
+          data-smooth-scroll
+          class="px-2.5 sm:px-3 py-2 rounded-lg text-sm font-medium text-slatewarm hover:text-ink hover:bg-card/80 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+        >
+          About
+        </a>
+
+        <a
+          href="https://github.com/lance8403"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ml-1 inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-ink bg-card border border-hairline hover:border-forest hover:text-forest active:scale-[0.98] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+        >
+          <!-- Minimal GitHub SVG Icon -->
+          <svg
+            aria-hidden="true"
+            class="w-4 h-4 shrink-0"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+            />
+          </svg>
+          <span>GitHub</span>
+          <span aria-hidden="true" class="text-xs leading-none opacity-75">&#8599;</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Editorial Content Column -->
+  <main class="relative z-10 flex-1 w-full max-w-5xl mx-auto px-5 sm:px-8">
+    <!-- 2. Editorial Hero Section -->
+    <section aria-label="Introduction" class="pt-12 pb-16 sm:pt-20 sm:pb-24">
+      <!-- Fine Editorial Double-Line Accent Bar -->
+      <div aria-hidden="true" class="w-full max-w-xs mb-7 flex flex-col gap-1">
+        <div class="h-[2px] w-16 bg-forest rounded-full"></div>
+        <div class="h-px w-full bg-hairline"></div>
+      </div>
+
+      <!-- Mono Uppercase Eyebrow Kicker -->
+      <p class="font-mono text-[11px] sm:text-xs font-medium uppercase tracking-[0.18em] text-forest mb-5">
+        PERSONAL HUB &middot; TOOLS &amp; EXPERIMENTS
+      </p>
+
+      <!-- Large Editorial Serif Display Headline -->
+      <h1 class="font-serif text-4xl sm:text-5xl lg:text-[3.75rem] font-normal tracking-[-0.02em] leading-[1.08] text-ink max-w-3xl">
+        Quiet software, sharp tools, and
+        <em class="italic font-normal text-forest">living experiments.</em>
+      </h1>
+
+      <!-- Concise 2-Sentence Editorial Intro -->
+      <p class="mt-6 text-base sm:text-lg leading-relaxed text-slatewarm max-w-2xl">
+        Welcome to Lance's corner of the open web &mdash; a lightweight home for interactive browser
+        utilities, design studies, and ongoing notes built with clean HTML and hosted directly on
+        GitHub Pages. Everything here is crafted to load fast, stay readable, and remain easy to
+        evolve over time.
+      </p>
+
+      <!-- Clean Action Row -->
+      <div class="mt-9 flex flex-wrap items-center gap-3.5">
+        <a
+          href="#projects"
+          data-smooth-scroll
+          class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-medium text-card bg-forest hover:bg-forest-dark active:scale-[0.985] shadow-sm transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+        >
+          <span>Explore Projects</span>
+          <span aria-hidden="true" class="text-sm leading-none">&darr;</span>
+        </a>
+
+        <a
+          href="https://github.com/lance8403"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-medium text-ink bg-card border border-hairline hover:border-forest hover:text-forest active:scale-[0.985] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+        >
+          <span>GitHub Profile</span>
+          <span aria-hidden="true" class="text-xs leading-none opacity-80">&#8599;</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 3. Selected Projects Section -->
+    <section
+      id="projects"
+      aria-labelledby="projects-heading"
+      class="py-14 sm:py-20 border-t border-hairline scroll-mt-16"
+    >
+      <!-- Section Header Row + Interactive Filter Pills -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-10">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.16em] text-slatewarm mb-2">
+            01 / PROJECTS
+          </p>
+          <h2
+            id="projects-heading"
+            class="font-serif text-3xl sm:text-4xl font-normal tracking-tight text-ink"
+          >
+            Selected Work
+          </h2>
+        </div>
+
+        <!-- Filter Controls + Accessible Live Count -->
+        <div class="flex flex-wrap items-center gap-3">
+          <span
+            id="filter-summary"
+            aria-live="polite"
+            class="font-mono text-[11px] text-slatewarm mr-1"
+          >
+            3 entries
+          </span>
+
+          <div
+            role="group"
+            aria-label="Filter projects by status"
+            class="inline-flex items-center p-1 rounded-xl bg-card border border-hairline"
+          >
+            <button
+              type="button"
+              data-filter="all"
+              aria-pressed="true"
+              class="filter-btn px-3.5 py-1.5 rounded-lg font-mono text-xs font-medium transition-all duration-200 bg-forest text-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-1 focus-visible:ring-offset-card"
+            >
+              All
+            </button>
+            <button
+              type="button"
+              data-filter="live"
+              aria-pressed="false"
+              class="filter-btn px-3.5 py-1.5 rounded-lg font-mono text-xs font-medium transition-all duration-200 text-slatewarm hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-1 focus-visible:ring-offset-card"
+            >
+              Live
+            </button>
+            <button
+              type="button"
+              data-filter="upcoming"
+              aria-pressed="false"
+              class="filter-btn px-3.5 py-1.5 rounded-lg font-mono text-xs font-medium transition-all duration-200 text-slatewarm hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-1 focus-visible:ring-offset-card"
+            >
+              Upcoming
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Responsive 3-Column Project Card Grid -->
+      <div
+        id="projects-grid"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <!-- Card 01: Kissaten Focus Timer (Live) -->
+        <article
+          data-project-card
+          data-status="live"
+          class="group flex flex-col h-full rounded-2xl bg-card border border-hairline hover:border-forest/70 hover:shadow-editorial p-6 sm:p-7 transition-all duration-300"
+        >
+          <!-- Card Header: Mono Index + Live Status Pill -->
+          <div class="flex items-center justify-between gap-2 mb-5">
+            <span class="font-mono text-xs font-medium text-slatewarm tracking-wider">
+              01
+            </span>
+            <span
+              class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono text-[11px] font-medium bg-sage text-forest border border-forest/20"
+            >
+              <span aria-hidden="true" class="w-1.5 h-1.5 rounded-full bg-forest"></span>
+              <span>Live</span>
+            </span>
+          </div>
+
+          <!-- Card Title & Description -->
+          <h3 class="font-serif text-2xl font-medium tracking-tight text-ink group-hover:text-forest transition-colors duration-200">
+            Kissaten Focus Timer
+          </h3>
+
+          <p class="mt-3 text-sm leading-relaxed text-slatewarm flex-1">
+            A warm Japanese caf&eacute;&ndash;inspired Pomodoro timer with a smooth SVG progress
+            ring, synthesized Web Audio ceramic chime, lo-fi window rain ambience, and persistent
+            local tasks.
+          </p>
+
+          <!-- Mono Metadata Tags -->
+          <ul
+            aria-label="Technologies used"
+            class="mt-6 flex flex-wrap items-center gap-1.5"
+          >
+            <li class="px-2.5 py-1 rounded-md font-mono text-[11px] bg-sage/75 text-forest border border-forest/15">
+              HTML/JS
+            </li>
+            <li class="px-2.5 py-1 rounded-md font-mono text-[11px] bg-sage/75 text-forest border border-forest/15">
+              Web Audio
+            </li>
+            <li class="px-2.5 py-1 rounded-md font-mono text-[11px] bg-sage/75 text-forest border border-forest/15">
+              localStorage
+            </li>
+          </ul>
+
+          <!-- Card Footer Action Row -->
+          <div class="mt-6 pt-5 border-t border-hairline flex items-center justify-between gap-3">
+            <a
+              href="https://lance8403.github.io/pomodoro/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 text-sm font-medium text-forest hover:text-forest-dark underline-offset-4 hover:underline rounded-md py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+            >
+              <span>Launch App</span>
+              <span aria-hidden="true" class="text-xs leading-none">&#8599;</span>
+            </a>
+
+            <a
+              href="https://github.com/lance8403/pomodoro"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1 font-mono text-xs text-slatewarm hover:text-ink transition-colors duration-200 rounded-md py-1 px-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+            >
+              <span>Source</span>
+              <span aria-hidden="true">&#8599;</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Card 02: Interactive Browser Utility (Upcoming) -->
+        <article
+          data-project-card
+          data-status="upcoming"
+          class="group flex flex-col h-full rounded-2xl bg-card border border-hairline hover:border-forest/70 hover:shadow-editorial p-6 sm:p-7 transition-all duration-300"
+        >
+          <!-- Card Header: Mono Index + Next Up Status Pill -->
+          <div class="flex items-center justify-between gap-2 mb-5">
+            <span class="font-mono text-xs font-medium text-slatewarm tracking-wider">
+              02
+            </span>
+            <span
+              class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono text-[11px] font-medium bg-paper text-slatewarm border border-hairline"
+            >
+              <span aria-hidden="true" class="w-1.5 h-1.5 rounded-full bg-slatewarm/50"></span>
+              <span>Next Up</span>
+            </span>
+          </div>
+
+          <!-- Card Title & Description -->
+          <h3 class="font-serif text-2xl font-medium tracking-tight text-ink group-hover:text-forest transition-colors duration-200">
+            Interactive Browser Utility
+          </h3>
+
+          <p class="mt-3 text-sm leading-relaxed text-slatewarm flex-1">
+            A zero-backend single-file workbench for quick calculations, structured checklists, or
+            interactive data visualization &mdash; running privately inside a single browser tab.
+          </p>
+
+          <!-- Mono Metadata Tags -->
+          <ul
+            aria-label="Planned stack"
+            class="mt-6 flex flex-wrap items-center gap-1.5"
+          >
+            <li class="px-2.5 py-1 rounded-md font-mono text-[11px] bg-paper text-slatewarm border border-hairline">
+              Vanilla JS
+            </li>
+            <li class="px-2.5 py-1 rounded-md font-mono text-[11px] bg-paper text-slatewarm border border-hairline">
+              Interactive
+            </li>
+            <li class="px-2.5 py-1 rounded-md font-mono text-[11px] bg-paper text-slatewarm border border-hairline">
+              Zero Backend
+            </li>
+          </ul>
+
+          <!-- Card Footer Action Row -->
+          <div class="mt-6 pt-5 border-t border-hairline flex items-center justify-between gap-3">
+            <span class="font-mono text-[11px] text-slatewarm">
+              Slot ready for next build
+            </span>
+
+            <a
+              href="https://github.com/lance8403"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="shrink-0 inline-flex items-center gap-1 font-mono text-xs text-forest hover:text-forest-dark underline-offset-4 hover:underline rounded-md py-1 px-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+            >
+              <span>GitHub</span>
+              <span aria-hidden="true">&#8599;</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Card 03: Field Notes & Reading Index (Upcoming) -->
+        <article
+          data-project-card
+          data-status="upcoming"
+          class="group flex flex-col h-full rounded-2xl bg-card border border-hairline hover:border-forest/70 hover:shadow-editorial p-6 sm:p-7 transition-all duration-300"
+        >
+          <!-- Card Header: Mono Index + Draft Status Pill -->
+          <div class="flex items-center justify-between gap-2 mb-5">
+            <span class="font-mono text-xs font-medium text-slatewarm tracking-wider">
+              03
+            </span>
+            <span
+              class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono text-[11px] font-medium bg-paper text-slatewarm border border-hairline"
+            >
+              <span aria-hidden="true" class="w-1.5 h-1.5 rounded-full bg-slatewarm/50"></span>
+              <span>Draft</span>
+            </span>
+          </div>
+
+          <!-- Card Title & Description -->
+          <h3 class="font-serif text-2xl font-medium tracking-tight text-ink group-hover:text-forest transition-colors duration-200">
+            Field Notes &amp; Reading Index
+          </h3>
+
+          <p class="mt-3 text-sm leading-relaxed text-slatewarm flex-1">
+            A curated, fast-loading archive of practical workflows, distilled references, and
+            project logs structured with editorial clarity and zero platform lock-in.
+          </p>
+
+          <!-- Mono Metadata Tags -->
+          <ul
+            aria-label="Planned focus"
+            class="mt-6 flex flex-wrap items-center gap-1.5"
+          >
+            <li class="px-2.5 py-1 rounded-md font-mono text-[11px] bg-paper text-slatewarm border border-hairline">
+              Static Web
+            </li>
+            <li class="px-2.5 py-1 rounded-md font-mono text-[11px] bg-paper text-slatewarm border border-hairline">
+              Typography
+            </li>
+            <li class="px-2.5 py-1 rounded-md font-mono text-[11px] bg-paper text-slatewarm border border-hairline">
+              Archive
+            </li>
+          </ul>
+
+          <!-- Card Footer Action Row -->
+          <div class="mt-6 pt-5 border-t border-hairline flex items-center justify-between gap-3">
+            <span class="font-mono text-[11px] text-slatewarm">
+              Placeholder card &mdash; edit anytime
+            </span>
+
+            <a
+              href="https://github.com/lance8403"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="shrink-0 inline-flex items-center gap-1 font-mono text-xs text-forest hover:text-forest-dark underline-offset-4 hover:underline rounded-md py-1 px-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+            >
+              <span>GitHub</span>
+              <span aria-hidden="true">&#8599;</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 4. Editorial About & Colophon Section -->
+    <section
+      id="about"
+      aria-labelledby="about-heading"
+      class="py-14 sm:py-20 border-t border-hairline scroll-mt-16"
+    >
+      <p class="font-mono text-xs uppercase tracking-[0.16em] text-slatewarm mb-2">
+        02 / ABOUT &amp; COLOPHON
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start mt-4">
+        <!-- Left Column: Editorial About Philosophy -->
+        <div class="lg:col-span-7">
+          <h2
+            id="about-heading"
+            class="font-serif text-3xl sm:text-4xl font-normal tracking-tight text-ink mb-5"
+          >
+            Built to stay simple &amp; durable.
+          </h2>
+
+          <div class="space-y-4 text-base leading-relaxed text-slatewarm">
+            <p>
+              This hub is an experiment in owning small, reliable software without subscriptions,
+              account walls, or heavy build pipelines. Each project starts as a clear idea shaped
+              in plain HTML, CSS, and JavaScript so it opens instantaneously in any browser and
+              remains transparent down to every line.
+            </p>
+            <p>
+              Instead of wrestling with rigid templates, every page and utility here is designed
+              to be revised quickly through version-controlled commits on GitHub Pages &mdash; a
+              quiet workshop that grows one focused tool at a time.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Column: Directory & Colophon Key-Value List -->
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl bg-card border border-hairline p-6 sm:p-7">
+            <h3 class="font-mono text-xs font-medium uppercase tracking-[0.16em] text-forest mb-4">
+              Directory &amp; Colophon
+            </h3>
+
+            <dl class="divide-y divide-hairline text-sm">
+              <!-- GitHub Row -->
+              <div class="py-3.5 first:pt-1 flex items-baseline justify-between gap-4">
+                <dt class="font-mono text-xs uppercase tracking-wider text-slatewarm shrink-0">
+                  GitHub
+                </dt>
+                <dd class="text-right min-w-0 truncate">
+                  <a
+                    href="https://github.com/lance8403"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="font-medium text-forest hover:text-forest-dark underline-offset-4 hover:underline rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+                  >
+                    @lance8403 &#8599;
+                  </a>
+                </dd>
+              </div>
+
+              <!-- Live Timer Row -->
+              <div class="py-3.5 flex items-baseline justify-between gap-4">
+                <dt class="font-mono text-xs uppercase tracking-wider text-slatewarm shrink-0">
+                  Live Timer
+                </dt>
+                <dd class="text-right min-w-0 truncate">
+                  <a
+                    href="https://lance8403.github.io/pomodoro/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="font-medium text-forest hover:text-forest-dark underline-offset-4 hover:underline rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-card"
+                  >
+                    /pomodoro &#8599;
+                  </a>
+                </dd>
+              </div>
+
+              <!-- Hosting Row -->
+              <div class="py-3.5 flex items-baseline justify-between gap-4">
+                <dt class="font-mono text-xs uppercase tracking-wider text-slatewarm shrink-0">
+                  Hosting
+                </dt>
+                <dd class="text-right text-ink">
+                  GitHub Pages (Static HTML)
+                </dd>
+              </div>
+
+              <!-- Contact Placeholder Row -->
+              <div class="py-3.5 last:pb-1 flex items-baseline justify-between gap-4">
+                <dt class="font-mono text-xs uppercase tracking-wider text-slatewarm shrink-0">
+                  Contact
+                </dt>
+                <dd class="text-right text-slatewarm font-mono text-xs">
+                  Add email or link via prompt
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 5. Minimal Editorial Footer -->
+  <footer class="relative z-10 w-full max-w-5xl mx-auto px-5 sm:px-8 mt-auto">
+    <div class="py-8 border-t border-hairline flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slatewarm">
+      <p class="font-mono">
+        &copy; 2026 Lance &middot; Built as a single HTML file
+      </p>
+
+      <a
+        href="#top"
+        data-smooth-scroll
+        class="inline-flex items-center gap-1.5 font-mono text-xs text-slatewarm hover:text-forest transition-colors duration-200 rounded-md px-2 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+      >
+        <span>Back to top</span>
+        <span aria-hidden="true">&uarr;</span>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Interactive Filtering & Accessible Smooth Scroll Logic -->
+  <script>
+    /**
+     * =========================================================================
+     * LANCE PERSONAL HUB — EDITORIAL PRINT INTERACTIONS
+     *  1. Interactive Project Filter Pills (All / Live / Upcoming)
+     *  2. Smooth In-Page Anchor Navigation (Respects prefers-reduced-motion)
+     * =========================================================================
+     */
+    (function () {
+      'use strict';
+
+      /**
+       * Initializes project status filtering with accessible aria-pressed states
+       * and smooth entrance transitions.
+       */
+      function initProjectFilters() {
+        try {
+          const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
+          const projectCards = Array.from(document.querySelectorAll('[data-project-card]'));
+          const filterSummary = document.getElementById('filter-summary');
+
+          if (!filterButtons.length || !projectCards.length) return;
+
+          const activeClasses = ['bg-forest', 'text-card'];
+          const inactiveClasses = ['text-slatewarm', 'hover:text-ink'];
+
+          /**
+           * Applies the selected filter ("all" | "live" | "upcoming") to all cards.
+           * @param {string} selectedFilter
+           */
+          function applyFilter(selectedFilter) {
+            let visibleCount = 0;
+
+            // Update pill button visual and ARIA states
+            filterButtons.forEach((btn) => {
+              const isSelected = btn.getAttribute('data-filter') === selectedFilter;
+              btn.setAttribute('aria-pressed', String(isSelected));
+
+              if (isSelected) {
+                btn.classList.remove(...inactiveClasses);
+                btn.classList.add(...activeClasses);
+              } else {
+                btn.classList.remove(...activeClasses);
+                btn.classList.add(...inactiveClasses);
+              }
+            });
+
+            // Show or hide cards with a subtle fade-in transition
+            projectCards.forEach((card) => {
+              const cardStatus = card.getAttribute('data-status');
+              const shouldShow = selectedFilter === 'all' || cardStatus === selectedFilter;
+
+              if (shouldShow) {
+                visibleCount += 1;
+                card.classList.remove('hidden');
+                card.classList.add('opacity-0', 'translate-y-1');
+
+                requestAnimationFrame(() => {
+                  card.classList.remove('opacity-0', 'translate-y-1');
+                });
+              } else {
+                card.classList.add('hidden');
+              }
+            });
+
+            // Update screen-reader-friendly entry counter
+            if (filterSummary) {
+              const noun = visibleCount === 1 ? 'entry' : 'entries';
+              const labelMap = {
+                all: `${visibleCount} ${noun}`,
+                live: `${visibleCount} live ${noun}`,
+                upcoming: `${visibleCount} upcoming ${noun}`,
+              };
+              filterSummary.textContent = labelMap[selectedFilter] || `${visibleCount} ${noun}`;
+            }
+          }
+
+          filterButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+              const filter = btn.getAttribute('data-filter') || 'all';
+              applyFilter(filter);
+            });
+          });
+        } catch (err) {
+          console.warn('Project filter initialization skipped:', err);
+        }
+      }
+
+      /**
+       * Ensures in-page anchor links scroll smoothly while honoring reduced-motion settings.
+       */
+      function initSmoothScroll() {
+        try {
+          const prefersReducedMotion =
+            window.matchMedia &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          const links = document.querySelectorAll('a[data-smooth-scroll]');
+
+          links.forEach((link) => {
+            link.addEventListener('click', (event) => {
+              const href = link.getAttribute('href');
+              if (!href || !href.startsWith('#')) return;
+
+              const targetEl = document.querySelector(href);
+              if (!targetEl) return;
+
+              event.preventDefault();
+              targetEl.scrollIntoView({
+                behavior: prefersReducedMotion ? 'auto' : 'smooth',
+                block: 'start',
+              });
+            });
+          });
+        } catch (err) {
+          console.warn('Smooth scroll handler skipped:', err);
+        }
+      }
+
+      // Initialize once DOM is ready
+      initProjectFilters();
+      initSmoothScroll();
+    })();
+  </script>
+</body>
+</html>
